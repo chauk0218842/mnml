@@ -205,9 +205,9 @@ describe('#index', () => {
         return expect(resources.getPhotosFromAlbumId(3)).resolves.toEqual(
           _.map(getPhotosFromAlbumIdThreeResponse, [
             'id',
-            'url',
             'thumbnailUrl',
             'title',
+            'url',
           ])
         );
       });
