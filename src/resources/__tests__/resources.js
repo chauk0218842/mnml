@@ -4,7 +4,7 @@ import _ from 'lodash';
 import httpAdapter from 'axios/lib/adapters/http';
 import nock from 'nock';
 
-import resources, { apiSuccessHandler, apiErrorHandler } from '../index';
+import resources, { apiSuccessHandler, apiErrorHandler } from '../resources';
 import { API_SERVER } from '../constants';
 
 global.console.error = jest.fn();
