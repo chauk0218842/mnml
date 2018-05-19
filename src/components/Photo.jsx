@@ -26,7 +26,7 @@ Photo.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-Photos.defaultProps = {
+Photo.defaultProps = {
   onClickPhoto: url => console.log('Photo > onClickPhoto', url),
 };
 
