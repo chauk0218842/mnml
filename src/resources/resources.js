@@ -40,7 +40,9 @@ const getFromApi = url =>
  * @returns {Promise.<string>}
  */
 const getUsers = () =>
-  getFromApi(API_GET_USERS).then(data => _.map(data, ['id', 'name']));
+  getFromApi(API_GET_USERS).then(data =>
+    _.map(data, user => _.pick(user, ['id', 'name']))
+  );
 
 /**
  * Fetch albums by user id
@@ -48,7 +50,7 @@ const getUsers = () =>
  */
 const getAlbumsByUserId = userId =>
   getFromApi(API_GET_ALBUMS_BY_USERID(userId)).then(data =>
-    _.map(data, ['id', 'title'])
+    _.map(data, album => _.pick(album, ['id', 'title']))
   );
 
 /**
@@ -57,7 +59,9 @@ const getAlbumsByUserId = userId =>
  */
 const getPhotosFromAlbumId = albumId =>
   getFromApi(API_GET_PHOTOS_BY_ALBUMID(albumId)).then(data =>
-    _.map(data, ['id', 'url', 'thumbnailUrl', 'title'])
+    _.map(data, photos =>
+      _.pick(photos, ['id', 'url', 'thumbnailUrl', 'title'])
+    )
   );
 
 const resources = {

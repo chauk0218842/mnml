@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 
-const Wrapper = styled.div``;
-
-const Album = ({ id, onClickAlbum, title }) => (
-  <Wrapper onClick={() => onClickAlbum(id)}>{title}</Wrapper>
+const Album = ({ className, id, onClickAlbum, title }) => (
+  <div className={className} onClick={() => onClickAlbum(id)}>
+    {title}
+  </div>
 );
 
 Album.propTypes = {

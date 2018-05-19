@@ -175,7 +175,7 @@ describe('#index', () => {
         nockServer.get('/users').reply(200, getUsersResponse);
 
         return expect(resources.getUsers()).resolves.toEqual(
-          _.map(getUsersResponse, ['id', 'name'])
+          _.map(getUsersResponse, user => _.pick(user, ['id', 'name']))
         );
       });
     });
@@ -189,7 +189,9 @@ describe('#index', () => {
           .reply(200, getAlbumsByUserIdTwoResponse);
 
         return expect(resources.getAlbumsByUserId(2)).resolves.toEqual(
-          _.map(getAlbumsByUserIdTwoResponse, ['id', 'title'])
+          _.map(getAlbumsByUserIdTwoResponse, album =>
+            _.pick(album, ['id', 'title'])
+          )
         );
       });
     });
@@ -203,12 +205,9 @@ describe('#index', () => {
           .reply(200, getPhotosFromAlbumIdThreeResponse);
 
         return expect(resources.getPhotosFromAlbumId(3)).resolves.toEqual(
-          _.map(getPhotosFromAlbumIdThreeResponse, [
-            'id',
-            'thumbnailUrl',
-            'title',
-            'url',
-          ])
+          _.map(getPhotosFromAlbumIdThreeResponse, photo =>
+            _.pick(photo, ['id', 'thumbnailUrl', 'title', 'url'])
+          )
         );
       });
     });

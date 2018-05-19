@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 
-const Wrapper = styled.div``;
-
-const User = ({ id, name, onClickUser }) => (
-  <Wrapper onClick={() => onClickUser(id)}>{name}</Wrapper>
+const User = ({ className, id, name, onClickUser }) => (
+  <div className={className} onClick={() => onClickUser(id)}>
+    {name}
+  </div>
 );
 
 User.propTypes = {

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "create-react-class": "^15.6.3",
     "lodash": "^4.17.10",
     "nock": "^9.2.6",
     "prop-types": "^15.6.1",
@@ -11,7 +12,9 @@
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0"
+    "recompose": "^0.27.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,6 +27,7 @@
   "devDependencies": {
     "husky": "^0.14.3",
     "prettier": "^1.12.1",
-    "pretty-quick": "^1.5.0"
+    "pretty-quick": "^1.5.0",
+    "styled-components": "^3.2.6"
   }
 }

@@ -1,21 +1,27 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div``;
-const Thumbnail = styled.img``;
-const Title = styled.div``;
+export const Thumbnail = styled.img``;
+export const Title = styled.div``;
 
-const Photo = ({ id, onClickPhoto, onLoadPhoto, thumbnailUrl, title, url }) => (
-  <Wrapper>
+const Photo = ({
+  className,
+  id,
+  onClickPhoto,
+  onLoadPhoto,
+  thumbnailUrl,
+  title,
+  url,
+}) => (
+  <div className={className}>
     <Thumbnail
       alt={title}
       src={thumbnailUrl}
       onClick={() => onClickPhoto(url)}
     />
     <Title>{title}</Title>
-  </Wrapper>
+  </div>
 );
 
 Photo.propTypes = {
