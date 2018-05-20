@@ -1,11 +1,17 @@
 /**
  * Constants
  */
+export const ACTION_SELECT_USER = 'SELECT_USER';
 export const ACTION_UPDATE_USERS = 'UPDATE_USERS';
 
 /**
  * Actions
  */
+export const selectUser = userId => ({
+  type: ACTION_SELECT_USER,
+  payload: userId || null,
+});
+
 export const updateUsers = users => ({
   type: ACTION_UPDATE_USERS,
   payload: users || {},
@@ -14,11 +20,22 @@ export const updateUsers = users => ({
 /**
  * Reducer
  */
-const initialState = {};
+const initialState = {
+  list: {},
+  selectedUserId: null,
+};
 
 const reducer = (state = initialState, { type, payload } = {}) => {
-  if (type === ACTION_UPDATE_USERS) {
-    return { ...state, ...payload };
+  if (type === ACTION_SELECT_USER) {
+    return {
+      ...state,
+      selectedUserId: payload,
+    };
+  } else if (type === ACTION_UPDATE_USERS) {
+    return {
+      ...state,
+      list: { ...state.list, ...payload },
+    };
   }
 
   return state;

@@ -1,8 +1,50 @@
 /* global describe, test, beforeEach */
 
-import reducer, { ACTION_UPDATE_USERS, updateUsers } from '../users';
+import reducer, {
+  ACTION_UPDATE_USERS,
+  updateUsers,
+  selectUser,
+  ACTION_SELECT_USER,
+} from '../users';
 
 describe('#users', () => {
+  describe('selectUser', () => {
+    test('is a function', () => {
+      expect(typeof selectUser).toEqual('function');
+    });
+
+    describe('pass in userId', () => {
+      test('userId is not defined', () => {
+        expect(selectUser()).toEqual({
+          type: ACTION_SELECT_USER,
+          payload: null,
+        });
+
+        expect(selectUser(null)).toEqual({
+          type: ACTION_SELECT_USER,
+          payload: null,
+        });
+      });
+
+      test('userId is defined', () => {
+        expect(selectUser(-168)).toEqual({
+          type: ACTION_SELECT_USER,
+          payload: -168,
+        });
+
+        expect(selectUser(168)).toEqual({
+          type: ACTION_SELECT_USER,
+          payload: 168,
+        });
+
+        expect(selectUser('ONE-SIXTY-EIGHT')).toEqual({
+          type: ACTION_SELECT_USER,
+          payload: 'ONE-SIXTY-EIGHT',
+        });
+      });
+    });
+  });
+
   describe('updateUsers', () => {
     let payload;
     beforeEach(() => {
@@ -59,20 +101,23 @@ describe('#users', () => {
     let action;
 
     beforeEach(() => {
-      state = [
-        {
-          id: 0,
-          name: 'Name Zero',
+      state = {
+        list: {
+          0: {
+            id: 0,
+            name: 'Name Zero',
+          },
+          1: {
+            id: 1,
+            name: 'Name One',
+          },
+          2: {
+            id: 2,
+            name: 'Name Two',
+          },
         },
-        {
-          id: 1,
-          name: 'Name One',
-        },
-        {
-          id: 2,
-          name: 'Name Two',
-        },
-      ];
+        selectd: null,
+      };
 
       payload = [
         {
@@ -97,7 +142,7 @@ describe('#users', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual({});
+        expect(reducer()).toEqual({ list: {}, selectedUserId: null });
         expect(reducer(null)).toEqual(null);
       });
 
@@ -112,7 +157,10 @@ describe('#users', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual({ ...state, ...payload });
+        expect(reducer(state, action)).toEqual({
+          ...state,
+          list: { ...state.list, ...payload },
+        });
       });
     });
   });

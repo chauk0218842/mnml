@@ -17,14 +17,21 @@ describe('#reducers', () => {
       expect(store.getState()).toEqual({
         albums: {},
         photos: {},
-        users: {},
+        users: {
+          list: {},
+          selectedUserId: null,
+        },
       });
     });
 
     describe('smoke test child reducers', () => {
       test('updateAlbums', () => {
         store.dispatch(
-          actions.updateAlbums({ 1: { id: 1 }, 2: { id: 2 }, 3: { id: 3 } })
+          actions.updateAlbums({
+            1: { id: 1 },
+            2: { id: 2 },
+            3: { id: 3 },
+          })
         );
         expect(store.getState().albums).toEqual({
           1: { id: 1 },
@@ -54,9 +61,12 @@ describe('#reducers', () => {
         );
 
         expect(store.getState().users).toEqual({
-          1: { id: 1, name: 'Name One' },
-          2: { id: 2, name: 'Name Two' },
-          3: { id: 3, name: 'Name Three' },
+          list: {
+            1: { id: 1, name: 'Name One' },
+            2: { id: 2, name: 'Name Two' },
+            3: { id: 3, name: 'Name Three' },
+          },
+          selectedUserId: null,
         });
       });
     });

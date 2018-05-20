@@ -23,6 +23,7 @@ const Container = styled.div`
 `;
 
 const User = styled(_User)`
+  background: ${props => (props.selected ? '#888' : 'none')}
   border-bottom: 2px solid #000;
   padding: 0.5rem 1rem;
 `;
@@ -81,10 +82,11 @@ const Photos = styled.div`
 
 const UserPhotoAlbum = compose(
   connect(
-    ({ albums, users, photos }) => ({
-      albums,
-      users,
+    ({ albums, photos, users }) => ({
+      albums: _.pickBy(albums, ({ userId }) => userId === users.selectedUserId),
       photos,
+      users: users.list,
+      selectedUserId: users.selectedUserId,
     }),
     dispatch => ({
       fetchUsers() {
@@ -98,6 +100,8 @@ const UserPhotoAlbum = compose(
           .then(photos => dispatch(actions.updatePhotos(photos)));
       },
       onClickUser(userId) {
+        dispatch(actions.selectUser(userId));
+
         resources
           .getAlbumsByUserId(userId)
           .then(albums => dispatch(actions.updateAlbums(albums)));
@@ -109,37 +113,41 @@ const UserPhotoAlbum = compose(
       this.props.fetchUsers();
     },
   }),
-  mapProps(({ albums, onClickAlbum, onClickUser, photos, users }) => ({
-    albums: _.chain(albums)
-      .map((album, index) => (
-        <Album
-          key={`album_${index}`}
-          onClickAlbum={() => onClickAlbum(album.id)}
-          {...album}
-        />
-      ))
-      .thru(
-        children => (!!_.size(children) ? <Albums>{children}</Albums> : null)
-      )
-      .value(),
-    photos: _.chain(photos)
-      .map((photo, index) => <Photo key={`photo_${index}`} {...photo} />)
-      .thru(
-        children => (!!_.size(children) ? <Photos>{children}</Photos> : null)
-      )
-      .value(),
-
-    users: _.chain(users)
-      .map((user, index) => (
-        <User
-          key={`user_${index}`}
-          onClickUser={() => onClickUser(user.id)}
-          {...user}
-        />
-      ))
-      .thru(children => (!!_.size(children) ? <Users>{children}</Users> : null))
-      .value(),
-  }))
+  mapProps(
+    ({ albums, onClickAlbum, onClickUser, photos, selectedUserId, users }) => ({
+      albums: _.chain(albums)
+        .map((album, index) => (
+          <Album
+            key={`album_${index}`}
+            onClickAlbum={() => onClickAlbum(album.id)}
+            {...album}
+          />
+        ))
+        .thru(
+          children => (!!_.size(children) ? <Albums>{children}</Albums> : null)
+        )
+        .value(),
+      photos: _.chain(photos)
+        .map((photo, index) => <Photo key={`photo_${index}`} {...photo} />)
+        .thru(
+          children => (!!_.size(children) ? <Photos>{children}</Photos> : null)
+        )
+        .value(),
+      users: _.chain(users)
+        .map((user, index) => (
+          <User
+            key={`user_${index}`}
+            onClickUser={() => onClickUser(user.id)}
+            selected={user.id === selectedUserId}
+            {...user}
+          />
+        ))
+        .thru(
+          children => (!!_.size(children) ? <Users>{children}</Users> : null)
+        )
+        .value(),
+    })
+  )
 )(({ albums, className, photos, users }) => (
   <Container className={className}>
     {users}
