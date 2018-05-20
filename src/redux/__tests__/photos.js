@@ -1,9 +1,9 @@
 /* global describe, test, beforeEach */
 
-import reducer, { ACTION_ADD_PHOTOS, addPhotos } from '../photos';
+import reducer, { ACTION_UPDATE_PHOTOS, updatePhotos } from '../photos';
 
 describe('#photos', () => {
-  describe('addPhotos', () => {
+  describe('updatePhotos', () => {
     let payload;
     beforeEach(() => {
       payload = [
@@ -32,30 +32,30 @@ describe('#photos', () => {
     });
 
     test('is a function', () => {
-      expect(typeof addPhotos).toEqual('function');
+      expect(typeof updatePhotos).toEqual('function');
     });
 
     describe('pass in photos', () => {
       test('photos is not defined', () => {
-        expect(addPhotos()).toEqual({
-          type: ACTION_ADD_PHOTOS,
-          payload: [],
+        expect(updatePhotos()).toEqual({
+          type: ACTION_UPDATE_PHOTOS,
+          payload: {},
         });
 
-        expect(addPhotos(null)).toEqual({
-          type: ACTION_ADD_PHOTOS,
-          payload: [],
+        expect(updatePhotos(null)).toEqual({
+          type: ACTION_UPDATE_PHOTOS,
+          payload: {},
         });
       });
 
       test('photos is defined', () => {
-        expect(addPhotos([])).toEqual({
-          type: ACTION_ADD_PHOTOS,
-          payload: [],
+        expect(updatePhotos({})).toEqual({
+          type: ACTION_UPDATE_PHOTOS,
+          payload: {},
         });
 
-        expect(addPhotos(payload)).toEqual({
-          type: ACTION_ADD_PHOTOS,
+        expect(updatePhotos(payload)).toEqual({
+          type: ACTION_UPDATE_PHOTOS,
           payload,
         });
       });
@@ -68,29 +68,29 @@ describe('#photos', () => {
     let action;
 
     beforeEach(() => {
-      state = [
-        {
+      state = {
+        0: {
           albumId: 0,
           id: 0,
           title: 'Photo Zero',
           url: 'http://photos.io/assets/photo0.jpg',
           thumbnailUrl: 'http://photos.io/assets/photo_thumbnail0.jpg',
         },
-        {
+        1: {
           albumId: 0,
           id: 1,
           title: 'Photo One',
           url: 'http://photos.io/assets/photo1.jpg',
           thumbnailUrl: 'http://photos.io/assets/photo_thumbnail1.jpg',
         },
-        {
+        2: {
           albumId: 1,
           id: 2,
           title: 'Photo Two',
           url: 'http://photos.io/assets/photo2.jpg',
           thumbnailUrl: 'http://photos.io/assets/photo_thumbnail2.jpg',
         },
-      ];
+      };
 
       payload = [
         {
@@ -117,7 +117,7 @@ describe('#photos', () => {
       ];
 
       action = {
-        type: ACTION_ADD_PHOTOS,
+        type: ACTION_UPDATE_PHOTOS,
         payload,
       };
     });
@@ -128,7 +128,7 @@ describe('#photos', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual([]);
+        expect(reducer()).toEqual({});
         expect(reducer(null)).toEqual(null);
       });
 
@@ -143,7 +143,7 @@ describe('#photos', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual([...state, ...payload]);
+        expect(reducer(state, action)).toEqual({ ...state, ...payload });
       });
     });
   });

@@ -1,9 +1,9 @@
 /* global describe, test, beforeEach */
 
-import reducer, { ACTION_ADD_ALBUMS, addAlbums } from '../albums';
+import reducer, { ACTION_UPDATE_ALBUMS, updateAlbums } from '../albums';
 
 describe('#albums', () => {
-  describe('addAlbums', () => {
+  describe('updateAlbums', () => {
     let payload;
     beforeEach(() => {
       payload = [
@@ -26,30 +26,30 @@ describe('#albums', () => {
     });
 
     test('is a function', () => {
-      expect(typeof addAlbums).toEqual('function');
+      expect(typeof updateAlbums).toEqual('function');
     });
 
     describe('pass in albums', () => {
       test('albums is not defined', () => {
-        expect(addAlbums()).toEqual({
-          type: ACTION_ADD_ALBUMS,
-          payload: [],
+        expect(updateAlbums()).toEqual({
+          type: ACTION_UPDATE_ALBUMS,
+          payload: {},
         });
 
-        expect(addAlbums(null)).toEqual({
-          type: ACTION_ADD_ALBUMS,
-          payload: [],
+        expect(updateAlbums(null)).toEqual({
+          type: ACTION_UPDATE_ALBUMS,
+          payload: {},
         });
       });
 
       test('albums is defined', () => {
-        expect(addAlbums([])).toEqual({
-          type: ACTION_ADD_ALBUMS,
-          payload: [],
+        expect(updateAlbums({})).toEqual({
+          type: ACTION_UPDATE_ALBUMS,
+          payload: {},
         });
 
-        expect(addAlbums(payload)).toEqual({
-          type: ACTION_ADD_ALBUMS,
+        expect(updateAlbums(payload)).toEqual({
+          type: ACTION_UPDATE_ALBUMS,
           payload,
         });
       });
@@ -104,7 +104,7 @@ describe('#albums', () => {
       ];
 
       action = {
-        type: ACTION_ADD_ALBUMS,
+        type: ACTION_UPDATE_ALBUMS,
         payload,
       };
     });
@@ -115,7 +115,7 @@ describe('#albums', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual([]);
+        expect(reducer()).toEqual({});
         expect(reducer(null)).toEqual(null);
       });
 
@@ -130,7 +130,7 @@ describe('#albums', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual([...state, ...payload]);
+        expect(reducer(state, action)).toEqual({ ...state, ...payload });
       });
     });
   });

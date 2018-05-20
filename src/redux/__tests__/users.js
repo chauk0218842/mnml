@@ -1,9 +1,9 @@
 /* global describe, test, beforeEach */
 
-import reducer, { ACTION_ADD_USERS, addUsers } from '../users';
+import reducer, { ACTION_UPDATE_USERS, updateUsers } from '../users';
 
 describe('#users', () => {
-  describe('addUsers', () => {
+  describe('updateUsers', () => {
     let payload;
     beforeEach(() => {
       payload = [
@@ -23,30 +23,30 @@ describe('#users', () => {
     });
 
     test('is a function', () => {
-      expect(typeof addUsers).toEqual('function');
+      expect(typeof updateUsers).toEqual('function');
     });
 
     describe('pass in users', () => {
       test('users is not defined', () => {
-        expect(addUsers()).toEqual({
-          type: ACTION_ADD_USERS,
-          payload: [],
+        expect(updateUsers()).toEqual({
+          type: ACTION_UPDATE_USERS,
+          payload: {},
         });
 
-        expect(addUsers(null)).toEqual({
-          type: ACTION_ADD_USERS,
-          payload: [],
+        expect(updateUsers(null)).toEqual({
+          type: ACTION_UPDATE_USERS,
+          payload: {},
         });
       });
 
       test('users is defined', () => {
-        expect(addUsers([])).toEqual({
-          type: ACTION_ADD_USERS,
-          payload: [],
+        expect(updateUsers({})).toEqual({
+          type: ACTION_UPDATE_USERS,
+          payload: {},
         });
 
-        expect(addUsers(payload)).toEqual({
-          type: ACTION_ADD_USERS,
+        expect(updateUsers(payload)).toEqual({
+          type: ACTION_UPDATE_USERS,
           payload,
         });
       });
@@ -86,7 +86,7 @@ describe('#users', () => {
       ];
 
       action = {
-        type: ACTION_ADD_USERS,
+        type: ACTION_UPDATE_USERS,
         payload,
       };
     });
@@ -97,7 +97,7 @@ describe('#users', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual([]);
+        expect(reducer()).toEqual({});
         expect(reducer(null)).toEqual(null);
       });
 
@@ -112,7 +112,7 @@ describe('#users', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual([...state, ...payload]);
+        expect(reducer(state, action)).toEqual({ ...state, ...payload });
       });
     });
   });

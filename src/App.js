@@ -8,9 +8,15 @@ import redux from './redux/redux';
 
 const store = createStore(
   redux,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(logger)
+  process.env.NODE_ENV !== 'production' &&
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__(),
+  process.env.NODE_ENV !== 'production' && applyMiddleware(logger)
 );
+
+if (process.env.NODE_ENV !== 'production') {
+  window.store = store;
+}
 
 const App = () => (
   <Provider store={store}>

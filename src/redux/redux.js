@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import albums, { addAlbums } from './albums';
-import photos, { addPhotos } from './photos';
-import users, { addUsers } from './users';
+import albums, { updateAlbums } from './albums';
+import photos, { updatePhotos } from './photos';
+import users, { updateUsers } from './users';
 
 export const actions = {
-  addAlbums,
-  addPhotos,
-  addUsers,
+  updateAlbums,
+  updatePhotos,
+  updateUsers,
 };
 
 const reducers = combineReducers({

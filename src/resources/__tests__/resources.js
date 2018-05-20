@@ -175,7 +175,14 @@ describe('#index', () => {
         nockServer.get('/users').reply(200, getUsersResponse);
 
         return expect(resources.getUsers()).resolves.toEqual(
-          _.map(getUsersResponse, user => _.pick(user, ['id', 'name']))
+          _.reduce(
+            getUsersResponse,
+            (results, { id, name }) => ({
+              [id]: { id, name },
+              ...results,
+            }),
+            {}
+          )
         );
       });
     });
@@ -189,8 +196,13 @@ describe('#index', () => {
           .reply(200, getAlbumsByUserIdTwoResponse);
 
         return expect(resources.getAlbumsByUserId(2)).resolves.toEqual(
-          _.map(getAlbumsByUserIdTwoResponse, album =>
-            _.pick(album, ['id', 'title'])
+          _.reduce(
+            getAlbumsByUserIdTwoResponse,
+            (results, { id, title, userId }) => ({
+              [id]: { id, title, userId },
+              ...results,
+            }),
+            {}
           )
         );
       });
@@ -205,8 +217,13 @@ describe('#index', () => {
           .reply(200, getPhotosFromAlbumIdThreeResponse);
 
         return expect(resources.getPhotosFromAlbumId(3)).resolves.toEqual(
-          _.map(getPhotosFromAlbumIdThreeResponse, photo =>
-            _.pick(photo, ['id', 'thumbnailUrl', 'title', 'url'])
+          _.reduce(
+            getPhotosFromAlbumIdThreeResponse,
+            (results, { id, thumbnailUrl, title, url }) => ({
+              [id]: { id, thumbnailUrl, title, url },
+              ...results,
+            }),
+            {}
           )
         );
       });

@@ -41,7 +41,14 @@ const getFromApi = url =>
  */
 const getUsers = () =>
   getFromApi(API_GET_USERS).then(data =>
-    _.map(data, user => _.pick(user, ['id', 'name']))
+    _.reduce(
+      data,
+      (results, { id, name }) => ({
+        ...results,
+        [id]: { id, name },
+      }),
+      {}
+    )
   );
 
 /**
@@ -50,7 +57,14 @@ const getUsers = () =>
  */
 const getAlbumsByUserId = userId =>
   getFromApi(API_GET_ALBUMS_BY_USERID(userId)).then(data =>
-    _.map(data, album => _.pick(album, ['id', 'title']))
+    _.reduce(
+      data,
+      (results, { id, title, userId }) => ({
+        ...results,
+        [id]: { id, title, userId },
+      }),
+      {}
+    )
   );
 
 /**
@@ -59,8 +73,13 @@ const getAlbumsByUserId = userId =>
  */
 const getPhotosFromAlbumId = albumId =>
   getFromApi(API_GET_PHOTOS_BY_ALBUMID(albumId)).then(data =>
-    _.map(data, photos =>
-      _.pick(photos, ['id', 'url', 'thumbnailUrl', 'title'])
+    _.reduce(
+      data,
+      (results, { id, thumbnailUrl, title, url }) => ({
+        ...results,
+        [id]: { id, thumbnailUrl, title, url },
+      }),
+      {}
     )
   );
 

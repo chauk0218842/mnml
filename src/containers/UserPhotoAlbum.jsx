@@ -88,17 +88,19 @@ const UserPhotoAlbum = compose(
     }),
     dispatch => ({
       fetchUsers() {
-        resources.getUsers().then(users => dispatch(actions.addUsers(users)));
+        resources
+          .getUsers()
+          .then(users => dispatch(actions.updateUsers(users)));
       },
       onClickAlbum(albumId) {
         resources
           .getPhotosFromAlbumId(albumId)
-          .then(photos => dispatch(actions.addPhotos(photos)));
+          .then(photos => dispatch(actions.updatePhotos(photos)));
       },
       onClickUser(userId) {
         resources
           .getAlbumsByUserId(userId)
-          .then(albums => dispatch(actions.addAlbums(albums)));
+          .then(albums => dispatch(actions.updateAlbums(albums)));
       },
     })
   ),

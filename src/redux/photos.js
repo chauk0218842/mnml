@@ -1,24 +1,24 @@
 /**
  * Constants
  */
-export const ACTION_ADD_PHOTOS = 'ADD_PHOTOS';
+export const ACTION_UPDATE_PHOTOS = 'UPDATE_PHOTOS';
 
 /**
  * Actions
  */
-export const addPhotos = photos => ({
-  type: ACTION_ADD_PHOTOS,
-  payload: photos || [],
+export const updatePhotos = photos => ({
+  type: ACTION_UPDATE_PHOTOS,
+  payload: photos || {},
 });
 
 /**
  * Reducer
  */
-const initialState = [];
+const initialState = {};
 
 const reducer = (state = initialState, { type, payload } = {}) => {
-  if (type === ACTION_ADD_PHOTOS) {
-    return [...state, ...payload];
+  if (type === ACTION_UPDATE_PHOTOS) {
+    return { ...state, ...payload };
   }
 
   return state;
