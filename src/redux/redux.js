@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import albums, { updateAlbums } from './albums';
+import albums, { selectAlbum, updateAlbums } from './albums';
 import photos, { updatePhotos } from './photos';
 import users, { selectUser, updateUsers } from './users';
 
 export const actions = {
+  selectAlbum,
   selectUser,
   updateAlbums,
   updatePhotos,

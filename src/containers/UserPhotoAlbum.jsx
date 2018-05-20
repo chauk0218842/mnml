@@ -38,6 +38,7 @@ const Users = styled.div`
 `;
 
 const Album = styled(_Album)`
+  background: ${props => (props.selected ? '#888' : 'none')}
   border-bottom: 2px solid #000;
   padding: 0.5rem 1rem;
 `;
@@ -89,6 +90,7 @@ const UserPhotoAlbum = compose(
       ),
       photos,
       users: users.list,
+      selectedAlbumId: albums.selectedAlbumId,
       selectedUserId: users.selectedUserId,
     }),
     dispatch => ({
@@ -98,13 +100,14 @@ const UserPhotoAlbum = compose(
           .then(users => dispatch(actions.updateUsers(users)));
       },
       onClickAlbum(albumId) {
+        dispatch(actions.selectAlbum(albumId));
         resources
           .getPhotosFromAlbumId(albumId)
           .then(photos => dispatch(actions.updatePhotos(photos)));
       },
       onClickUser(userId) {
         dispatch(actions.selectUser(userId));
-
+        dispatch(actions.selectAlbum());
         resources
           .getAlbumsByUserId(userId)
           .then(albums => dispatch(actions.updateAlbums(albums)));
@@ -117,12 +120,21 @@ const UserPhotoAlbum = compose(
     },
   }),
   mapProps(
-    ({ albums, onClickAlbum, onClickUser, photos, selectedUserId, users }) => ({
+    ({
+      albums,
+      onClickAlbum,
+      onClickUser,
+      photos,
+      selectedAlbumId,
+      selectedUserId,
+      users,
+    }) => ({
       albums: _.chain(albums)
         .map((album, index) => (
           <Album
             key={`album_${index}`}
             onClickAlbum={() => onClickAlbum(album.id)}
+            selected={album.id === selectedAlbumId}
             {...album}
           />
         ))
