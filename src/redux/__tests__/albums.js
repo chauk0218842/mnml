@@ -1,8 +1,50 @@
 /* global describe, test, beforeEach */
 
-import reducer, { ACTION_UPDATE_ALBUMS, updateAlbums } from '../albums';
+import reducer, {
+  ACTION_SELECT_ALBUM,
+  ACTION_UPDATE_ALBUMS,
+  selectAlbum,
+  updateAlbums,
+} from '../albums';
 
 describe('#albums', () => {
+  describe('selectAlbum', () => {
+    test('is a function', () => {
+      expect(typeof selectAlbum).toEqual('function');
+    });
+
+    describe('pass in albumId', () => {
+      test('albumId is not defined', () => {
+        expect(selectAlbum()).toEqual({
+          type: ACTION_SELECT_ALBUM,
+          payload: null,
+        });
+
+        expect(selectAlbum(null)).toEqual({
+          type: ACTION_SELECT_ALBUM,
+          payload: null,
+        });
+      });
+
+      test('albumId is defined', () => {
+        expect(selectAlbum(-168)).toEqual({
+          type: ACTION_SELECT_ALBUM,
+          payload: -168,
+        });
+
+        expect(selectAlbum(168)).toEqual({
+          type: ACTION_SELECT_ALBUM,
+          payload: 168,
+        });
+
+        expect(selectAlbum('ONE-SIXTY-EIGHT')).toEqual({
+          type: ACTION_SELECT_ALBUM,
+          payload: 'ONE-SIXTY-EIGHT',
+        });
+      });
+    });
+  });
+
   describe('updateAlbums', () => {
     let payload;
     beforeEach(() => {
@@ -115,7 +157,10 @@ describe('#albums', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual({});
+        expect(reducer()).toEqual({
+          list: {},
+          selectedAlbumId: null,
+        });
         expect(reducer(null)).toEqual(null);
       });
 
@@ -130,7 +175,10 @@ describe('#albums', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual({ ...state, ...payload });
+        expect(reducer(state, action)).toEqual({
+          ...state,
+          list: { ...state, ...payload },
+        });
       });
     });
   });

@@ -7,9 +7,9 @@ export const ACTION_UPDATE_USERS = 'UPDATE_USERS';
 /**
  * Actions
  */
-export const selectUser = userId => ({
+export const selectUser = (userId = null) => ({
   type: ACTION_SELECT_USER,
-  payload: userId || null,
+  payload: userId,
 });
 
 export const updateUsers = users => ({

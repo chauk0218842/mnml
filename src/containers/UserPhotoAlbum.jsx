@@ -83,7 +83,10 @@ const Photos = styled.div`
 const UserPhotoAlbum = compose(
   connect(
     ({ albums, photos, users }) => ({
-      albums: _.pickBy(albums, ({ userId }) => userId === users.selectedUserId),
+      albums: _.pickBy(
+        albums.list,
+        ({ userId }) => userId === users.selectedUserId
+      ),
       photos,
       users: users.list,
       selectedUserId: users.selectedUserId,
