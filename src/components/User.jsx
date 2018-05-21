@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const User = ({ className, id, name, onClickUser }) => (
+const User = ({ className, children, id, name, onClickUser }) => (
   <div className={className} onClick={() => onClickUser(id)}>
-    {name}
+    {children || name}
   </div>
 );
 

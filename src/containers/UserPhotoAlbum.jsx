@@ -1,3 +1,5 @@
+import { Glyphicon as _Glyphicon } from 'react-bootstrap';
+
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -12,9 +14,19 @@ import _Photo, { Thumbnail, Title } from '../components/Photo';
 import _User from '../components/User';
 
 const COLUMN_BACKGROUND = '#ccc';
-const COLUMN_HEIGHT = '500px';
+const COLUMN_HEIGHT = '300px';
 const COLUMN_WIDTH = '200px';
 const ITEM_HOVER_BACKGROUND = '#AAA';
+
+const Glyphicon = styled(_Glyphicon)`
+  margin-right: 1rem;
+`;
+
+const FlexRow = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`;
 
 const Container = styled.div`
   align-items: center;
@@ -42,7 +54,7 @@ const Users = styled.div`
   border: 2px solid #000;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: ${COLUMN_HEIGHT};
   width: ${COLUMN_WIDTH};
   overflow: auto;
 `;
@@ -80,7 +92,7 @@ const Photo = styled(_Photo)`
 const Photos = styled.div`
   background: ${COLUMN_BACKGROUND};
   border: 2px solid #000;
-  height: 500px;
+  height: ${COLUMN_HEIGHT};
   overflow: auto;
   position: absolute;
   width: ${COLUMN_WIDTH};
@@ -156,7 +168,12 @@ const UserPhotoAlbum = compose(
             onClickAlbum={() => onClickAlbum(album.id)}
             selected={album.id === selectedAlbumId}
             {...album}
-          />
+          >
+            <FlexRow>
+              <Glyphicon glyph="folder-close" />
+              <span>{album.title}</span>
+            </FlexRow>
+          </Album>
         ))
         .thru(
           children => (!!_.size(children) ? <Albums>{children}</Albums> : null)
@@ -175,7 +192,12 @@ const UserPhotoAlbum = compose(
             onClickUser={() => onClickUser(user.id)}
             selected={user.id === selectedUserId}
             {...user}
-          />
+          >
+            <FlexRow>
+              <Glyphicon glyph="user" />
+              <span>{user.name}</span>
+            </FlexRow>
+          </User>
         ))
         .thru(
           children => (!!_.size(children) ? <Users>{children}</Users> : null)

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Album = ({ className, id, onClickAlbum, title }) => (
+const Album = ({ children, className, id, onClickAlbum, title }) => (
   <div className={className} onClick={() => onClickAlbum(id)}>
-    {title}
+    {children || title}
   </div>
 );
 
