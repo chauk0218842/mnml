@@ -11,9 +11,14 @@ import _Album from '../components/Album';
 import _Photo, { Thumbnail, Title } from '../components/Photo';
 import _User from '../components/User';
 
+const COLUMN_BACKGROUND = '#ccc';
+const COLUMN_HEIGHT = '500px';
+const COLUMN_WIDTH = '200px';
+const ITEM_HOVER_BACKGROUND = '#AAA';
+
 const Container = styled.div`
   align-items: center;
-  background: #ccc;
+  background: ${COLUMN_BACKGROUND};
   display: flex;
   font-family: sans-serif;
   flex-direction: row;
@@ -26,14 +31,19 @@ const User = styled(_User)`
   background: ${props => (props.selected ? '#888' : 'none')}
   border-bottom: 2px solid #000;
   padding: 0.5rem 1rem;
+  
+  &:hover {
+    background: ${ITEM_HOVER_BACKGROUND};
+  }
 `;
 
 const Users = styled.div`
+  background: ${COLUMN_BACKGROUND};
   border: 2px solid #000;
   display: flex;
   flex-direction: column;
   height: 500px;
-  width: 200px;
+  width: ${COLUMN_WIDTH};
   overflow: auto;
 `;
 
@@ -41,15 +51,22 @@ const Album = styled(_Album)`
   background: ${props => (props.selected ? '#888' : 'none')}
   border-bottom: 2px solid #000;
   padding: 0.5rem 1rem;
+  
+  &:hover {
+    background: ${ITEM_HOVER_BACKGROUND};
+  }
 `;
 
 const Albums = styled.div`
+  background: ${COLUMN_BACKGROUND};
   border: 2px solid #000;
   display: flex;
   flex-direction: column;
-  height: 500px;
-  width: 200px;
+  height: ${COLUMN_HEIGHT};
   overflow: auto;
+  position: absolute;
+  width: ${COLUMN_WIDTH};
+  z-index: 1;
 
   ${Album}: last-child {
     border: 0;
@@ -61,10 +78,13 @@ const Photo = styled(_Photo)`
 `;
 
 const Photos = styled.div`
+  background: ${COLUMN_BACKGROUND};
   border: 2px solid #000;
   height: 500px;
-  width: 200px;
   overflow: auto;
+  position: absolute;
+  width: ${COLUMN_WIDTH};
+  z-index: 2;
 
   ${Photo} {
     ${Thumbnail} {
