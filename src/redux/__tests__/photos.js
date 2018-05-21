@@ -128,7 +128,10 @@ describe('#photos', () => {
 
     describe('pass in state', () => {
       test('state is not defined', () => {
-        expect(reducer()).toEqual({});
+        expect(reducer()).toEqual({
+          list: {},
+          selectedPhotoId: null,
+        });
         expect(reducer(null)).toEqual(null);
       });
 
@@ -143,7 +146,10 @@ describe('#photos', () => {
       });
 
       test('state is defined and action is defined', () => {
-        expect(reducer(state, action)).toEqual({ ...state, ...payload });
+        expect(reducer(state, action)).toEqual({
+          ...state,
+          list: { ...state.list, ...payload },
+        });
       });
     });
   });

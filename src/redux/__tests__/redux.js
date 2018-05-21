@@ -19,7 +19,10 @@ describe('#reducers', () => {
           list: {},
           selectedAlbumId: null,
         },
-        photos: {},
+        photos: {
+          list: {},
+          selectedPhotoId: null,
+        },
         users: {
           list: {},
           selectedUserId: null,
@@ -51,9 +54,12 @@ describe('#reducers', () => {
           actions.updatePhotos({ 1: { id: 1 }, 2: { id: 2 }, 3: { id: 3 } })
         );
         expect(store.getState().photos).toEqual({
-          1: { id: 1 },
-          2: { id: 2 },
-          3: { id: 3 },
+          list: {
+            1: { id: 1 },
+            2: { id: 2 },
+            3: { id: 3 },
+          },
+          selectedPhotoId: null,
         });
       });
 

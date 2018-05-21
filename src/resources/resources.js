@@ -75,9 +75,9 @@ const getPhotosFromAlbumId = albumId =>
   getFromApi(API_GET_PHOTOS_BY_ALBUMID(albumId)).then(data =>
     _.reduce(
       data,
-      (results, { id, thumbnailUrl, title, url }) => ({
+      (results, { albumId, id, thumbnailUrl, title, url }) => ({
         ...results,
-        [id]: { id, thumbnailUrl, title, url },
+        [id]: { albumId, id, thumbnailUrl, title, url },
       }),
       {}
     )

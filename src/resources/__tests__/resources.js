@@ -199,8 +199,8 @@ describe('#index', () => {
           _.reduce(
             getAlbumsByUserIdTwoResponse,
             (results, { id, title, userId }) => ({
-              [id]: { id, title, userId },
               ...results,
+              [id]: { id, title, userId },
             }),
             {}
           )
@@ -219,9 +219,9 @@ describe('#index', () => {
         return expect(resources.getPhotosFromAlbumId(3)).resolves.toEqual(
           _.reduce(
             getPhotosFromAlbumIdThreeResponse,
-            (results, { id, thumbnailUrl, title, url }) => ({
-              [id]: { id, thumbnailUrl, title, url },
+            (results, { albumId, id, thumbnailUrl, title, url }) => ({
               ...results,
+              [id]: { albumId, id, thumbnailUrl, title, url },
             }),
             {}
           )

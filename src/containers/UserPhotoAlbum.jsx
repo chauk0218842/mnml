@@ -120,7 +120,10 @@ const UserPhotoAlbum = compose(
         albums.list,
         ({ userId }) => userId === users.selectedUserId
       ),
-      photos,
+      photos: _.pickBy(
+        photos.list,
+        ({ albumId }) => albumId === albums.selectedAlbumId
+      ),
       users: users.list,
       selectedAlbumId: albums.selectedAlbumId,
       selectedUserId: users.selectedUserId,
