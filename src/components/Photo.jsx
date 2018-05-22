@@ -15,11 +15,7 @@ const Photo = ({
   url,
 }) => (
   <div className={className}>
-    <Thumbnail
-      alt={title}
-      src={thumbnailUrl}
-      onClick={() => onClickPhoto(url)}
-    />
+    <Thumbnail alt={title} src={url} onClick={() => onClickPhoto(url)} />
     <Title>{title}</Title>
   </div>
 );
