@@ -4,6 +4,6 @@
 
 `npm run start`
 
-Enjoy, (best viewed on a mobile device)!
+Enjoy!
 
 Created using create-react-app.
